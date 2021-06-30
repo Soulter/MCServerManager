@@ -6,7 +6,7 @@
 #### 使用请注明出处
 
 
-You can [click this](http://) for a README of English version.
+You can [click this](https://gitee.com/soulter/MCServerManager/blob/master/README_en.md) for a README of English version.
 
 #### 介绍
 
