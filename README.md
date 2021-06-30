@@ -5,7 +5,11 @@
 
 #### 使用请注明出处
 
+
+You can [click this](http://) for a README of English version.
+
 #### 介绍
+
 这是一个快捷Minecraft服务器信息获取器，输入目标服务器ip及端口，即可得到服务器版本号、在线人数、简介、图标、玩家列表、玩家头像（avatar）等信息
 
 
