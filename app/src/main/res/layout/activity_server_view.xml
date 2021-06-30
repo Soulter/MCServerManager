@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+
+            <ImageView
+                android:id="@+id/server_favicon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="16dp"
+                android:visibility="invisible"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/basic_server_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/server_basic_info_tv"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/basic_server_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
+
+
+
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/loading_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center_vertical">
+
+            </ProgressBar>
+
+        </LinearLayout>
+
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/basic_server_extra_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+
+        android:layout_gravity="center_vertical"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/basic_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人数："
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:textColor="#000"/>
+
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/basic_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="模式："
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/basic_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="版本："
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:textColor="#000"/>
+
+
+            <TextView
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TPS："
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/result_warning"
+        android:layout_marginTop="28dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="#E48181"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="世界信息获取失败了"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:paddingTop="8dp"
+            />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <View
+        android:id="@+id/divide_line_list_view"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DCC5C5">
+
+    </View>
+    <ListView
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/player_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/unsupported_players_data_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="-服务器未提供玩家列表-"
+        android:layout_marginTop="16dp">
+    </TextView>
+
+</LinearLayout>
