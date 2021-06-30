@@ -36,8 +36,6 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view;
         ViewHolder viewHolder;
-        if (convertView==null){
-
             // 避免ListView每次滚动时都要重新加载布局，以提高运行效率
             view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
 
@@ -50,39 +48,53 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
             viewHolder.serverStatus = view.findViewById(R.id.item_image_server_status);
             viewHolder.loadingBar = view.findViewById(R.id.item_loading);
 
+
             // 将ViewHolder存储在View中（即将控件的实例存储在其中）
             view.setTag(viewHolder);
-        } else{
-            view=convertView;
-            viewHolder=(ViewHolder) view.getTag();
-        }
 
-        // 获取控件实例，并调用set...方法使其显示出来
-        viewHolder.serverName.setText(serversList.get(position).getServerName());
-        viewHolder.serverIP.setText(serversList.get(position).getServerIP()+":"+serversList.get(position).getPort());
-        view.setTag(R.string.server_info_bean,serversList.get(position));
+            // 获取控件实例，并调用set...方法使其显示出来
+            viewHolder.serverName.setText(serversList.get(position).getServerName());
+            viewHolder.serverIP.setText(serversList.get(position).getServerIP()+":"+serversList.get(position).getPort());
+            view.setTag(R.string.server_info_bean,serversList.get(position));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    MinecraftServer minecraftServer = new MinecraftServer(serversList.get(position).getServerIP(),serversList.get(position).getPort(),true);
-                    viewHolder.loadingBar.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            viewHolder.loadingBar.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                    if (minecraftServer.isAvailable()){
-                        Log.v("lwl","available. "+viewHolder.serverIP.getText().toString());
-                        viewHolder.serverStatus.post(new Runnable() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        MinecraftServer minecraftServer = new MinecraftServer(serversList.get(position).getServerIP(),serversList.get(position).getPort(),true);
+                        viewHolder.loadingBar.post(new Runnable() {
                             @Override
                             public void run() {
-                                viewHolder.serverStatus.setImageResource(R.drawable.online);
+                                viewHolder.loadingBar.setVisibility(View.INVISIBLE);
                             }
                         });
+                        if (minecraftServer.isAvailable()){
+                            Log.v("lwl","available. "+viewHolder.serverIP.getText().toString());
+                            viewHolder.serverStatus.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    viewHolder.serverStatus.setImageResource(R.drawable.online);
+                                }
+                            });
 
-                    }else{
+                        }else{
+
+                            viewHolder.serverStatus.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    viewHolder.serverStatus.setImageResource(R.drawable.offline);
+                                }
+                            });
+                        }
+                    }catch (Exception e){
+                        Log.v("lwl","new a server failed. "+viewHolder.serverIP.getText().toString());
+                        viewHolder.loadingBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                viewHolder.loadingBar.setVisibility(View.INVISIBLE);
+                            }
+                        });
 
                         viewHolder.serverStatus.post(new Runnable() {
                             @Override
@@ -91,26 +103,10 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
                             }
                         });
                     }
-                }catch (Exception e){
-                    Log.v("lwl","new a server failed. "+viewHolder.serverIP.getText().toString());
-                    viewHolder.loadingBar.post(new Runnable() {
-                        @Override
-                        public void run() {
 
-                            viewHolder.loadingBar.setVisibility(View.INVISIBLE);
-                        }
-                    });
-
-                    viewHolder.serverStatus.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            viewHolder.serverStatus.setImageResource(R.drawable.offline);
-                        }
-                    });
                 }
+            }).start();
 
-            }
-        }).start();
 
 
         return view;

@@ -121,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mcServerList.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return true;//true : only run method:onLongClick  false:also run onItemClick.
+            }
+        });
 
     }
 
