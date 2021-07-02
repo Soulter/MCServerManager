@@ -3,10 +3,9 @@
 
 #### 使用请注明出处
 
-#### 使用请注明出处
 
 
-You can [click this](https://gitee.com/soulter/MCServerManager/blob/master/README_en.md) for a README of English version.
+You can [click this](https://gitee.com/soulter/MCServerManager/blob/master/README_EN.md) for a README of English version.
 
 #### 介绍
 
@@ -14,13 +13,11 @@ You can [click this](https://gitee.com/soulter/MCServerManager/blob/master/READM
 
 
 #### 参与
-本项目隶属于Github上的[idoknow](https://github.com/idoknow/)组织，服务器信息获取的接口由 组织成员**RockchinQ** 的[MCSManagerAPI](https://github.com/idoknow/MCSManagerAPI)提供，玩家头像（avatar）信息由[CraftHead](https://crafthead.net/)提供，本软件由组织成员Soulter制作。
+本项目隶属于Github上的[idoknow](https://github.com/idoknow/)组织，服务器信息获取的接口由 **RockchinQ** 的[MCSManagerAPI](https://github.com/idoknow/MCSManagerAPI)提供，玩家头像（avatar）信息由[CraftHead](https://crafthead.net/)提供，本软件由Soulter制作。
 
 #### 截图
 ![1](https://images.gitee.com/uploads/images/2021/0630/194437_11f61089_5250784.jpeg "Screenshot_2021-06-30-19-41-34-121_com.soulter.mc.jpg")
 ![2](https://images.gitee.com/uploads/images/2021/0630/194524_b2658e5f_5250784.jpeg "Screenshot_2021-06-30-19-41-36-121_com.soulter.mc.jpg")
 
-
-#### 使用请注明出处
 
 #### 使用请注明出处
