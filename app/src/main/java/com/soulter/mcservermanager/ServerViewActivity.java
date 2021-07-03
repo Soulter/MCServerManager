@@ -1,15 +1,21 @@
 package com.soulter.mcservermanager;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +25,7 @@ import java.util.List;
 
 import main.api.IServerInfo;
 import main.conn.MinecraftServer;
+import nl.vv32.rcon.Rcon;
 
 import static com.soulter.mcservermanager.MCServerMng.minecraftServer;
 
@@ -38,9 +45,14 @@ public class ServerViewActivity extends AppCompatActivity{
     CardView displayFailed;
     ListView playersListView;
     View divideLineLv;
+    Button openRconBtn;
 
     String serverIp;
     int serverPort;
+
+    final static String EXTRA_RCON_PORT = "rcon_port";
+    final static String EXTRA_RCON_PSW = "rcon_psw";
+    final static String EXTRA_SERVER_IP = "rcon_server_ip";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +74,46 @@ public class ServerViewActivity extends AppCompatActivity{
         noPlayersDataTv = (TextView)findViewById(R.id.unsupported_players_data_tv);
         loadingBar.setVisibility(View.GONE);
         displayFailed = (CardView)findViewById(R.id.result_warning);
+        openRconBtn = (Button)findViewById(R.id.open_rcon_btn);
+
         serverIp = getIntent().getStringExtra("server_ip");
         serverPort = getIntent().getIntExtra("server_port",-1);
+
+
+
+
+        openRconBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View addRconView = (LinearLayout)getLayoutInflater().inflate(R.layout.add_rcon_session_dialog,null);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(ServerViewActivity.this);
+                dialog.setTitle("添加Rcon会话")
+                        .setView(addRconView)
+                        .setNegativeButton("确 定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                EditText rconPortEt = (EditText)addRconView.findViewById(R.id.open_rcon_port);
+                                EditText rconPswEt = (EditText)addRconView.findViewById(R.id.open_rcon_psw);
+
+                                String rconPort = rconPortEt.getText().toString();
+                                String rconPsw = rconPswEt.getText().toString();
+                                if (rconPort.equals("")){
+                                    rconPort = "25575";
+                                }
+                                if (!rconPsw.equals("")){
+                                    Intent intent = new Intent(ServerViewActivity.this,RconSessionActivity.class);
+                                    intent.putExtra(EXTRA_RCON_PORT,rconPort);
+                                    intent.putExtra(EXTRA_RCON_PSW,rconPsw);
+                                    intent.putExtra(EXTRA_SERVER_IP,serverIp);
+                                    startActivity(intent);
+                                }
+
+
+                            }
+                        }).show();
+            }
+        });
+
 
         init();
     }
@@ -166,6 +216,12 @@ public class ServerViewActivity extends AppCompatActivity{
                             @Override
                             public void run() {
                                 divideLineLv.setVisibility(View.VISIBLE);
+                            }
+                        });
+                        openRconBtn.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                openRconBtn.setVisibility(View.VISIBLE);
                             }
                         });
                         playersListView.post(new Runnable() {

@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MCServerManager">
-        <activity android:name=".ServerViewActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".RconSessionActivity" />
+        <activity android:name=".ServerViewActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

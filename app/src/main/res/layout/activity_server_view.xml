@@ -50,6 +50,16 @@
                     android:layout_marginLeft="8dp"
                     android:layout_gravity="center_vertical"/>
 
+                <Button
+                    android:visibility="invisible"
+                    android:id="@+id/open_rcon_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Rcon模式">
+
+                </Button>
+
 
             </LinearLayout>
 
