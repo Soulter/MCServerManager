@@ -59,7 +59,6 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
             viewHolder.serverName.setText(serversList.get(position).getServerName());
             viewHolder.serverIP.setText(serversList.get(position).getServerIP()+":"+serversList.get(position).getPort());
             view.setTag(R.string.server_info_bean,serversList.get(position));
-
             if (statusMap.containsKey(position)){
                 viewHolder.loadingBar.setVisibility(View.INVISIBLE);
                 if (statusMap.get(position)){

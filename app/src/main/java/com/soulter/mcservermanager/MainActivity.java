@@ -121,12 +121,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mcServerList.setOnLongClickListener(new View.OnLongClickListener() {
+        mcServerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                return true;//true : only run method:onLongClick  false:also run onItemClick.
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setMessage("是否删除该服务器？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ServerInfoBean serverInfoBean = (ServerInfoBean) view.getTag(R.string.server_info_bean);
+                                final SharedPreferences spfs = getApplicationContext().getSharedPreferences("spfs", Context.MODE_PRIVATE);
+                                final SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences("spfs", Context.MODE_PRIVATE).edit();
+                                editor.remove(serverInfoBean.key);
+                                editor.apply();
+                                ServerListAdapter serverListAdapter1 = new ServerListAdapter(MainActivity.this,R.layout.item_server_list,getServersList());
+                                mcServerList.setAdapter(serverListAdapter1);
+                                aboutTv.setVisibility(View.GONE);
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
+                return true;
             }
         });
+
 
     }
 
@@ -145,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
+            Map.Entry entry = (Map.Entry) iter.next(); //?????
             String key = entry.getKey().toString();
             if (!key.equals("server_count")){
                 String val = entry.getValue().toString();
@@ -167,12 +190,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             Intent intent = new Intent(MainActivity.this,AboutActivity.class);
             startActivity(intent);

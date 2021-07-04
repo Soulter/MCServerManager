@@ -95,7 +95,7 @@ public class RconSessionActivity extends AppCompatActivity {
                     case 1: //发送Rcon
                         Log.v("lwl", "[Thread]send command");
                         try {
-                            response = response+ "\n>  " + msg.obj.toString();
+                            response = response+ "\n>" + msg.obj.toString();
                             responseTv.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -129,7 +129,9 @@ public class RconSessionActivity extends AppCompatActivity {
                 if (!editCommand.getText().toString().equals("")){
                     Log.v("lwl", "click->send command");
 
-                    mHandler.obtainMessage(1,editCommand.getText().toString()).sendToTarget(); //发送指令给子线程
+                    mHandler.obtainMessage(1,editCommand.getText().toString()).sendToTarget();//发送指令给子线程
+
+                    editCommand.setText("");
                 }
             }
         });

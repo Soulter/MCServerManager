@@ -33,7 +33,7 @@
         android:id="@+id/about_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="感谢使用Minecraft Server Manager\n      右下角添加Minecraft服务器。"
+        android:text="感谢使用Minecraft Server Manager\n      右下角添加Minecraft服务器。如需更新，请密切关注网址idoknow.top"
         android:textColor="#000"
         android:layout_gravity="center"
         android:visibility="invisible">

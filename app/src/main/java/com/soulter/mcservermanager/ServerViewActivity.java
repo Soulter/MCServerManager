@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -195,7 +196,9 @@ public class ServerViewActivity extends AppCompatActivity{
                                     extraText = extraText + extraDescr.text;
 
                                 }
-                                serverDescription.setText(""+defaultText+extraText);
+                                GetDecoratedMCString getDecoratedMCString = new GetDecoratedMCString();
+                                SpannableStringBuilder ssb = getDecoratedMCString.getDMCS(defaultText+extraText);
+                                serverDescription.setText(ssb);
                             }
                         });
                         serverFavicon.post(new Runnable() {
