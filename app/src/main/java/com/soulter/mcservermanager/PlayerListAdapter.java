@@ -17,13 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.conn.MinecraftServer;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;

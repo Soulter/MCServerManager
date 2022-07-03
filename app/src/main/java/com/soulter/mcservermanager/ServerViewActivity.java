@@ -26,7 +26,6 @@ import java.util.List;
 
 import main.api.IServerInfo;
 import main.conn.MinecraftServer;
-import nl.vv32.rcon.Rcon;
 
 import static com.soulter.mcservermanager.MCServerMng.minecraftServer;
 
@@ -132,7 +131,7 @@ public class ServerViewActivity extends AppCompatActivity{
                         }
                     });
                     Log.v("lwl","SERVER GET "+serverIp+serverPort);
-                    minecraftServer = new MinecraftServer(serverIp,serverPort,true);
+                    minecraftServer = new MinecraftServer(serverIp,serverPort);
 
                     Log.v("lwl",""+ minecraftServer.isAvailable());
 

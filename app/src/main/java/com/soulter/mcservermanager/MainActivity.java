@@ -4,35 +4,45 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.BuddhistCalendar;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -150,6 +160,83 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        checkUpdate();
+
+    }
+
+    public static int getVersionCode(Context context) {
+        PackageManager manager = context.getPackageManager();
+        int vc = 0;
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            vc = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return vc;
+    }
+
+    public void checkUpdate(){
+
+        Request request = new Request.Builder()
+                .url("https://idoknow.top/mcservermanager/app_update.html")
+                .build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("tag", "onFailure: " + e.getMessage());
+                Looper.prepare();
+                Toast.makeText(MainActivity.this, "自动检查更新失败~~", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+
+            }
+
+
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("tag", response.protocol() + " " + response.code() + " " + response.message());
+                Headers headers = response.headers();
+                for (int i = 0; i < headers.size(); i++) {
+                    Log.d("tag", headers.name(i) + ":" + headers.value(i));
+                }
+                try {
+                    String result = response.body().string(); //我草泥马只能调用一次 操你妈
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (Integer.valueOf(jsonObject.get("versionCode").toString()) > getVersionCode(MainActivity.this)){
+                        Looper.prepare();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("新版本")
+                                .setMessage(""+jsonObject.get("info"))
+                                .setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                })
+                                .setPositiveButton("前往更新", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent();
+                                        intent.setAction(Intent.ACTION_VIEW);//为Intent设置动作
+                                        intent.setData(Uri.parse("http://idoknow.top/mcservermanager/app_release.apk"));//为Intent设置数据
+                                        startActivity(intent);//将Intent传递给Activity
+                                    }
+                                })
+                                .setCancelable(false).create().show();
+                        Looper.loop();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
 
     }
 
