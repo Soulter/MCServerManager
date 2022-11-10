@@ -7,31 +7,50 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/item_tv_server_name"
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/item_server_icon"
+            android:src="@drawable/defaulticon">
+        </ImageView>
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:text="[ServerName]"
-            android:textColor="#000"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="12dp"
+            >
 
-        <TextView
-            android:id="@+id/item_tv_server_ip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="[ip]"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/item_tv_server_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:text="[ServerName]"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
+            <TextView
+                android:id="@+id/item_tv_server_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="[ip]"
+                android:textSize="16sp" />
+
+        </LinearLayout>
     </LinearLayout>
+
+
+
 
 
     <RelativeLayout

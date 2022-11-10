@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         }).show();
-
             }
         });
 
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("tag", headers.name(i) + ":" + headers.value(i));
                 }
                 try {
-                    String result = response.body().string(); //我草泥马只能调用一次 操你妈
+                    String result = response.body().string();
                     JSONObject jsonObject = new JSONObject(result);
                     if (Integer.valueOf(jsonObject.get("versionCode").toString()) > getVersionCode(MainActivity.this)){
                         Looper.prepare();

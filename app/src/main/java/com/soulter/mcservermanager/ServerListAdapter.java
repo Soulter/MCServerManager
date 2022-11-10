@@ -1,7 +1,12 @@
 package com.soulter.mcservermanager;
 
+import static com.soulter.mcservermanager.MCServerMng.minecraftServer;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +49,7 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
 
             // 避免每次调用getView()时都要重新获取控件实例
             viewHolder=new ViewHolder();
+            viewHolder.serverIcon = view.findViewById(R.id.item_server_icon);
             viewHolder.serverName=view.findViewById(R.id.item_tv_server_name);
             viewHolder.serverName.setTypeface(viewHolder.serverName.getTypeface(), Typeface.BOLD);
             viewHolder.serverIP=view.findViewById(R.id.item_tv_server_ip);
@@ -88,6 +94,16 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
                                 });
                                 statusMap.put(position,true);
 
+                                //设置服务器icon
+                                try {
+                                    byte[] decode = Base64.decode(minecraftServer.getFaviconBase64().split(",")[1], Base64.DEFAULT);
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
+                                    viewHolder.serverIcon.setImageBitmap(bitmap);
+
+                                }catch (Exception e){
+                                    viewHolder.serverIcon.setImageResource(R.drawable.defaulticon);
+                                }
+
                             }else{
 
                                 viewHolder.serverStatus.post(new Runnable() {
@@ -131,6 +147,7 @@ public class ServerListAdapter extends ArrayAdapter<ServerInfoBean> {
 
     // 定义一个内部类，用于对控件的实例进行缓存
     class ViewHolder{
+        ImageView serverIcon;
         TextView serverName;
         TextView serverIP;
         ImageView serverStatus;
